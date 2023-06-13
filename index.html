@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Multiselect Dropdown with Checkboxes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="multiselectContainer">
+        <div class="multiselect">
+            <div class="selected-values"></div>
+            <div class="dropdown">
+                <input type="checkbox" id="dropdownCheckbox">
+                <label for="dropdownCheckbox" class="dropdown-label">
+                    <span class="dropdown-text">Select</span>
+                    <span class="dropdown-icon"></span>
+                </label>
+                <ul class="options">
+                    <li><input type="checkbox" value="1" />Option 1</li>
+                    <li><input type="checkbox" value="2" />Option 2</li>
+                    <li><input type="checkbox" value="3" />Option 3</li>
+                    <li><input type="checkbox" value="4" />Option 4</li>
+                    <li><input type="checkbox" value="5" />Option 5</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // Get the necessary elements
+        const dropdownCheckbox = document.getElementById('dropdownCheckbox');
+        const selectedValuesContainer = document.querySelector('.selected-values');
+        const options = document.querySelectorAll('.options input[type="checkbox"]');
+
+        // Add event listener to the dropdown checkbox
+        dropdownCheckbox.addEventListener('change', function () {
+            const dropdownIcon = document.querySelector('.dropdown-icon');
+            const optionsList = document.querySelector('.options');
+
+            if (this.checked) {
+                dropdownIcon.classList.add('up');
+                optionsList.style.display = 'block';
+            } else {
+                dropdownIcon.classList.remove('up');
+                optionsList.style.display = 'none';
+            }
+        });
+
+        // Add event listeners to the options checkboxes
+        options.forEach(function (option) {
+            option.addEventListener('change', function () {
+                const selectedValues = Array.from(options)
+                    .filter(option => option.checked)
+                    .map(option => option.parentNode.textContent.trim());
+
+                selectedValuesContainer.textContent = selectedValues.join(', ');
+            });
+        });
+
+    </script>
+</body>
+
+</html>
